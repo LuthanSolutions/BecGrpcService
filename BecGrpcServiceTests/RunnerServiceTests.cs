@@ -43,10 +43,12 @@ public class RunnerServiceTests
     [Fact]
     public async Task ProcessBecDailyInput_BecServiceCallThrowsException_ReturnsCorrectReply()
     {
+        var milliseconds = 123;
         var expectedExceptionMessage = "Something went wrong";
         var expectedException = new Exception(expectedExceptionMessage);
         _ = this.mockBecService
             .Setup(svc => svc.ProcessBecDailyInputAsync())
+            .Callback(() => Thread.Sleep(milliseconds))
             .Throws(expectedException);
         var sut = new RunnerService(this.mockBecService.Object);
 
@@ -54,6 +56,7 @@ public class RunnerServiceTests
 
         _ = response.Succeeded.Should().Be(false);
         _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
+        _ = response.ExecutionTimeMilliseconds.Should().BeGreaterThanOrEqualTo(milliseconds);
     }
 
     [Fact]
@@ -93,9 +96,11 @@ public class RunnerServiceTests
     public async Task ProcessGetBecEmailsToSend_BecServiceCallThrowsException_ReturnsCorrectReply()
     {
         var expectedExceptionMessage = "Something went wrong";
+        var milliseconds = 123;
         var expectedException = new Exception(expectedExceptionMessage);
         _ = this.mockBecService
             .Setup(svc => svc.ProcessGetBecEmailsToSendAsync())
+            .Callback(() => Thread.Sleep(milliseconds))
             .Throws(expectedException);
         var sut = new RunnerService(this.mockBecService.Object);
 
@@ -103,6 +108,7 @@ public class RunnerServiceTests
 
         _ = response.Succeeded.Should().Be(false);
         _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
+        _ = response.ExecutionTimeMilliseconds.Should().BeGreaterThanOrEqualTo(milliseconds);
     }
 
     [Fact]
@@ -142,9 +148,11 @@ public class RunnerServiceTests
     public async Task ProcessBecSendEmails_BecServiceCallThrowsException_ReturnsCorrectReply()
     {
         var expectedExceptionMessage = "Something went wrong";
+        var milliseconds = 123;
         var expectedException = new Exception(expectedExceptionMessage);
         _ = this.mockBecService
             .Setup(svc => svc.ProcessBecSendEmailsAsync())
+            .Callback(() => Thread.Sleep(milliseconds))
             .Throws(expectedException);
         var sut = new RunnerService(this.mockBecService.Object);
 
@@ -152,5 +160,6 @@ public class RunnerServiceTests
 
         _ = response.Succeeded.Should().Be(false);
         _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
+        _ = response.ExecutionTimeMilliseconds.Should().BeGreaterThanOrEqualTo(milliseconds);
     }
 }

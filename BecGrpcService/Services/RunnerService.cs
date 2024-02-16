@@ -9,9 +9,9 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
 
     public override async Task<BecRunnerReply> ProcessBecDailyInput(Empty request, ServerCallContext context)
     {
+        var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
         try
         {
-            var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             var (Succeeded, ErrorMessage) = await this.becService.ProcessBecDailyInputAsync();
             return new BecRunnerReply
             {
@@ -25,16 +25,17 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
             return new BecRunnerReply
             {
                 Succeeded = false,
-                ErrorMessage = ex.Message
+                ErrorMessage = ex.Message,
+                ExecutionTimeMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond - startMilliseconds
             };
         }
     }
 
     public override async Task<BecRunnerReply> ProcessGetBecEmailsToSend(Empty request, ServerCallContext context)
     {
+        var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
         try
         {
-            var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             var (Succeeded, ErrorMessage) = await this.becService.ProcessGetBecEmailsToSendAsync();
             return new BecRunnerReply
             {
@@ -48,16 +49,17 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
             return new BecRunnerReply
             {
                 Succeeded = false,
-                ErrorMessage = ex.Message
+                ErrorMessage = ex.Message,
+                ExecutionTimeMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond - startMilliseconds
             };
         }
     }
 
     public override async Task<BecRunnerReply> ProcessBecSendEmails(Empty request, ServerCallContext context)
     {
+        var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
         try
         {
-            var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             var (Succeeded, ErrorMessage) = await this.becService.ProcessBecSendEmailsAsync();
             return new BecRunnerReply
             {
@@ -71,7 +73,8 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
             return new BecRunnerReply
             {
                 Succeeded = false,
-                ErrorMessage = ex.Message
+                ErrorMessage = ex.Message,
+                ExecutionTimeMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond - startMilliseconds
             };
         }
     }
