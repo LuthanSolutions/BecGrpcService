@@ -1,5 +1,6 @@
 namespace BecGrpcService.Services;
 using BecGrpcService;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
     public RunnerService(IBecService becService) =>
         this.becService = becService;
 
-    public override async Task<BecRunnerReply> ProcessBecDailyInput(EmptyRequest request, ServerCallContext context)
+    public override async Task<BecRunnerReply> ProcessBecDailyInput(Empty request, ServerCallContext context)
     {
         try
         {
@@ -31,7 +32,7 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
         }
     }
 
-    public override async Task<BecRunnerReply> ProcessGetBecEmailsToSend(EmptyRequest request, ServerCallContext context)
+    public override async Task<BecRunnerReply> ProcessGetBecEmailsToSend(Empty request, ServerCallContext context)
     {
         try
         {
@@ -52,7 +53,7 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
         }
     }
 
-    public override async Task<BecRunnerReply> ProcessBecSendEmails(EmptyRequest request, ServerCallContext context)
+    public override async Task<BecRunnerReply> ProcessBecSendEmails(Empty request, ServerCallContext context)
     {
         try
         {

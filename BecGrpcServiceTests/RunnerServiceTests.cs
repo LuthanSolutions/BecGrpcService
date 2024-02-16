@@ -3,6 +3,7 @@ namespace BecGrpcServiceTests;
 using BecGrpcService;
 using BecGrpcService.Services;
 using FluentAssertions;
+using Google.Protobuf.WellKnownTypes;
 using Moq;
 
 public class RunnerServiceTests
@@ -17,7 +18,7 @@ public class RunnerServiceTests
     {
         var sut = new RunnerService(this.mockBecService.Object);
 
-        _ = await sut.ProcessBecDailyInput(new EmptyRequest(), null!);
+        _ = await sut.ProcessBecDailyInput(new Empty(), null!);
 
         this.mockBecService.Verify(svc => svc.ProcessBecDailyInputAsync(), Times.Once());
         this.mockBecService.VerifyNoOtherCalls();
@@ -35,7 +36,7 @@ public class RunnerServiceTests
         _ = this.mockBecService.Setup(svc => svc.ProcessBecDailyInputAsync()).ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessBecDailyInput(new EmptyRequest(), null!);
+        var response = await sut.ProcessBecDailyInput(new Empty(), null!);
 
         _ = response.Succeeded.Should().Be(succeeded);
         _ = response.ErrorMessage.Should().Be(errorMessage);
@@ -49,7 +50,7 @@ public class RunnerServiceTests
         _ = this.mockBecService.Setup(svc => svc.ProcessBecDailyInputAsync()).Throws(expectedException);
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessBecDailyInput(new EmptyRequest(), null!);
+        var response = await sut.ProcessBecDailyInput(new Empty(), null!);
 
         _ = response.Succeeded.Should().Be(false);
         _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
@@ -60,7 +61,7 @@ public class RunnerServiceTests
     {
         var sut = new RunnerService(this.mockBecService.Object);
 
-        _ = await sut.ProcessGetBecEmailsToSend(new EmptyRequest(), null!);
+        _ = await sut.ProcessGetBecEmailsToSend(new Empty(), null!);
 
         this.mockBecService.Verify(svc => svc.ProcessGetBecEmailsToSendAsync(), Times.Once());
         this.mockBecService.VerifyNoOtherCalls();
@@ -78,7 +79,7 @@ public class RunnerServiceTests
         _ = this.mockBecService.Setup(svc => svc.ProcessGetBecEmailsToSendAsync()).ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessGetBecEmailsToSend(new EmptyRequest(), null!);
+        var response = await sut.ProcessGetBecEmailsToSend(new Empty(), null!);
 
         _ = response.Succeeded.Should().Be(succeeded);
         _ = response.ErrorMessage.Should().Be(errorMessage);
@@ -92,7 +93,7 @@ public class RunnerServiceTests
         _ = this.mockBecService.Setup(svc => svc.ProcessGetBecEmailsToSendAsync()).Throws(expectedException);
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessGetBecEmailsToSend(new EmptyRequest(), null!);
+        var response = await sut.ProcessGetBecEmailsToSend(new Empty(), null!);
 
         _ = response.Succeeded.Should().Be(false);
         _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
@@ -103,7 +104,7 @@ public class RunnerServiceTests
     {
         var sut = new RunnerService(this.mockBecService.Object);
 
-        _ = await sut.ProcessBecSendEmails(new EmptyRequest(), null!);
+        _ = await sut.ProcessBecSendEmails(new Empty(), null!);
 
         this.mockBecService.Verify(svc => svc.ProcessBecSendEmailsAsync(), Times.Once());
         this.mockBecService.VerifyNoOtherCalls();
@@ -121,7 +122,7 @@ public class RunnerServiceTests
         _ = this.mockBecService.Setup(svc => svc.ProcessBecSendEmailsAsync()).ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessBecSendEmails(new EmptyRequest(), null!);
+        var response = await sut.ProcessBecSendEmails(new Empty(), null!);
 
         _ = response.Succeeded.Should().Be(succeeded);
         _ = response.ErrorMessage.Should().Be(errorMessage);
@@ -135,7 +136,7 @@ public class RunnerServiceTests
         _ = this.mockBecService.Setup(svc => svc.ProcessBecSendEmailsAsync()).Throws(expectedException);
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessBecSendEmails(new EmptyRequest(), null!);
+        var response = await sut.ProcessBecSendEmails(new Empty(), null!);
 
         _ = response.Succeeded.Should().Be(false);
         _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);

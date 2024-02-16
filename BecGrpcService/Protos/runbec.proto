@@ -1,18 +1,17 @@
 syntax = "proto3";
 
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 
 option csharp_namespace = "BecGrpcService";
 
 package runbec;
 
 service BecRunnerService {
-  rpc ProcessBecDailyInput (EmptyRequest) returns (BecRunnerReply);
-  rpc ProcessGetBecEmailsToSend (EmptyRequest) returns (BecRunnerReply);
-  rpc ProcessBecSendEmails (EmptyRequest) returns (BecRunnerReply);
+  rpc ProcessBecDailyInput (google.protobuf.Empty) returns (BecRunnerReply);
+  rpc ProcessGetBecEmailsToSend (google.protobuf.Empty) returns (BecRunnerReply);
+  rpc ProcessBecSendEmails (google.protobuf.Empty) returns (BecRunnerReply);
 }
-
-message EmptyRequest { }
 
 message BecRunnerReply {
   bool Succeeded = 1;
