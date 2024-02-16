@@ -1,8 +1,4 @@
 namespace BecGrpcService.Services;
-using BecGrpcService;
-using Google.Protobuf.WellKnownTypes;
-using Grpc.Core;
-using System.Threading.Tasks;
 
 public class RunnerService : BecRunnerService.BecRunnerServiceBase
 {

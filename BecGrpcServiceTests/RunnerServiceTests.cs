@@ -1,11 +1,5 @@
 namespace BecGrpcServiceTests;
 
-using BecGrpcService;
-using BecGrpcService.Services;
-using FluentAssertions;
-using Google.Protobuf.WellKnownTypes;
-using Moq;
-
 public class RunnerServiceTests
 {
     private readonly Mock<IBecService> mockBecService;
