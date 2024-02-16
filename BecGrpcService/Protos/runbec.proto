@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "BecGrpcService";
+
+package runbec;
+
+service BecRunnerService {
+  rpc ProcessBecDailyInput (EmptyRequest) returns (BecRunnerReply);
+  rpc ProcessGetBecEmailsToSend (EmptyRequest) returns (BecRunnerReply);
+  rpc ProcessBecSendEamils (EmptyRequest) returns (BecRunnerReply);
+}
+
+message EmptyRequest { }
+
+message BecRunnerReply {
+  bool Succeeded = 1;
+  google.protobuf.StringValue ErrorMessage = 2;
+}

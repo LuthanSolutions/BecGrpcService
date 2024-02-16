@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BecGrpcService", "BecGrpcService\BecGrpcService.csproj", "{527A39A5-15D0-470E-8F6F-ADD3560E4709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BecGrpcServiceTests", "BecGrpcServiceTests\BecGrpcServiceTests.csproj", "{933674B6-F2C6-4531-BDE7-4EE0FADFB4E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{527A39A5-15D0-470E-8F6F-ADD3560E4709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{527A39A5-15D0-470E-8F6F-ADD3560E4709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{527A39A5-15D0-470E-8F6F-ADD3560E4709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{527A39A5-15D0-470E-8F6F-ADD3560E4709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{933674B6-F2C6-4531-BDE7-4EE0FADFB4E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{933674B6-F2C6-4531-BDE7-4EE0FADFB4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{933674B6-F2C6-4531-BDE7-4EE0FADFB4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{933674B6-F2C6-4531-BDE7-4EE0FADFB4E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA9AB336-6E90-4242-9579-96AD5B19A3FE}
+	EndGlobalSection
+EndGlobal
