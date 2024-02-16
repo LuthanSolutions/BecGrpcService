@@ -11,11 +11,13 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
     {
         try
         {
+            var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             var (Succeeded, ErrorMessage) = await this.becService.ProcessBecDailyInputAsync();
             return new BecRunnerReply
             {
                 Succeeded = Succeeded,
-                ErrorMessage = ErrorMessage
+                ErrorMessage = ErrorMessage,
+                ExecutionTimeMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond - startMilliseconds
             };
         }
         catch (Exception ex)
@@ -32,11 +34,13 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
     {
         try
         {
+            var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             var (Succeeded, ErrorMessage) = await this.becService.ProcessGetBecEmailsToSendAsync();
             return new BecRunnerReply
             {
                 Succeeded = Succeeded,
-                ErrorMessage = ErrorMessage
+                ErrorMessage = ErrorMessage,
+                ExecutionTimeMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond - startMilliseconds
             };
         }
         catch (Exception ex)
@@ -53,11 +57,13 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
     {
         try
         {
+            var startMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond;
             var (Succeeded, ErrorMessage) = await this.becService.ProcessBecSendEmailsAsync();
             return new BecRunnerReply
             {
                 Succeeded = Succeeded,
-                ErrorMessage = ErrorMessage
+                ErrorMessage = ErrorMessage,
+                ExecutionTimeMilliseconds = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond - startMilliseconds
             };
         }
         catch (Exception ex)

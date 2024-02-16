@@ -16,4 +16,5 @@ service BecRunnerService {
 message BecRunnerReply {
   bool Succeeded = 1;
   google.protobuf.StringValue ErrorMessage = 2;
+  int64 ExecutionTimeMilliseconds = 3;
 }

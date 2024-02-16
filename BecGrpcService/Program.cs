@@ -1,8 +1,11 @@
+using BecGrpcService;
 using BecGrpcService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
+
+builder.Services.AddScoped<IBecService, BecService>();
 
 var app = builder.Build();
 

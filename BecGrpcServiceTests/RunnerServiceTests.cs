@@ -19,16 +19,17 @@ public class RunnerServiceTests
     }
 
     [Theory]
-    [InlineData(true, null)]
-    [InlineData(true, "")]
-    [InlineData(true, "Some text as error message")]
-    [InlineData(false, null)]
-    [InlineData(false, "")]
-    [InlineData(false, "Some text as error message")]
-    public async Task ProcessBecDailyInput_ReturnsCorrectValue(bool succeeded, string? errorMessage)
+    [InlineData(true, null, 123)]
+    [InlineData(true, "", 321)]
+    [InlineData(true, "Some text as error message", 246)]
+    [InlineData(false, null, 135)]
+    [InlineData(false, "", 987)]
+    [InlineData(false, "Some text as error message", 654)]
+    public async Task ProcessBecDailyInput_ReturnsCorrectValue(bool succeeded, string? errorMessage, int milliseconds)
     {
         _ = this.mockBecService
             .Setup(svc => svc.ProcessBecDailyInputAsync())
+            .Callback(() => Thread.Sleep(milliseconds))
             .ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
@@ -36,6 +37,7 @@ public class RunnerServiceTests
 
         _ = response.Succeeded.Should().Be(succeeded);
         _ = response.ErrorMessage.Should().Be(errorMessage);
+        _ = response.ExecutionTimeMilliseconds.Should().BeGreaterThanOrEqualTo(milliseconds);
     }
 
     [Fact]
@@ -66,16 +68,17 @@ public class RunnerServiceTests
     }
 
     [Theory]
-    [InlineData(true, null)]
-    [InlineData(true, "")]
-    [InlineData(true, "Some text as error message")]
-    [InlineData(false, null)]
-    [InlineData(false, "")]
-    [InlineData(false, "Some text as error message")]
-    public async Task ProcessGetBecEmailsToSend_ReturnsCorrectValue(bool succeeded, string? errorMessage)
+    [InlineData(true, null, 123)]
+    [InlineData(true, "", 321)]
+    [InlineData(true, "Some text as error message", 246)]
+    [InlineData(false, null, 135)]
+    [InlineData(false, "", 987)]
+    [InlineData(false, "Some text as error message", 654)]
+    public async Task ProcessGetBecEmailsToSend_ReturnsCorrectValue(bool succeeded, string? errorMessage, int milliseconds)
     {
         _ = this.mockBecService
             .Setup(svc => svc.ProcessGetBecEmailsToSendAsync())
+            .Callback(() => Thread.Sleep(milliseconds))
             .ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
@@ -83,6 +86,7 @@ public class RunnerServiceTests
 
         _ = response.Succeeded.Should().Be(succeeded);
         _ = response.ErrorMessage.Should().Be(errorMessage);
+        _ = response.ExecutionTimeMilliseconds.Should().BeGreaterThanOrEqualTo(milliseconds);
     }
 
     [Fact]
@@ -113,16 +117,17 @@ public class RunnerServiceTests
     }
 
     [Theory]
-    [InlineData(true, null)]
-    [InlineData(true, "")]
-    [InlineData(true, "Some text as error message")]
-    [InlineData(false, null)]
-    [InlineData(false, "")]
-    [InlineData(false, "Some text as error message")]
-    public async Task ProcessBecSendEmails_ReturnsCorrectValue(bool succeeded, string? errorMessage)
+    [InlineData(true, null, 123)]
+    [InlineData(true, "", 321)]
+    [InlineData(true, "Some text as error message", 246)]
+    [InlineData(false, null, 135)]
+    [InlineData(false, "", 987)]
+    [InlineData(false, "Some text as error message", 654)]
+    public async Task ProcessBecSendEmails_ReturnsCorrectValue(bool succeeded, string? errorMessage, int milliseconds)
     {
         _ = this.mockBecService
             .Setup(svc => svc.ProcessBecSendEmailsAsync())
+            .Callback(() => Thread.Sleep(milliseconds))
             .ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
@@ -130,6 +135,7 @@ public class RunnerServiceTests
 
         _ = response.Succeeded.Should().Be(succeeded);
         _ = response.ErrorMessage.Should().Be(errorMessage);
+        _ = response.ExecutionTimeMilliseconds.Should().BeGreaterThanOrEqualTo(milliseconds);
     }
 
     [Fact]
