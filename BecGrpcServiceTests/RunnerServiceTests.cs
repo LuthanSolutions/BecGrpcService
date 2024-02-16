@@ -2,6 +2,7 @@ namespace BecGrpcServiceTests;
 
 using BecGrpcService;
 using BecGrpcService.Services;
+using FluentAssertions;
 using Moq;
 
 public class RunnerServiceTests
@@ -31,12 +32,27 @@ public class RunnerServiceTests
     [InlineData(false, "Some text as error message")]
     public async Task ProcessBecDailyInput_ReturnsCorrectValue(bool succeeded, string? errorMessage)
     {
+        _ = this.mockBecService.Setup(svc => svc.ProcessBecDailyInputAsync()).ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
         var response = await sut.ProcessBecDailyInput(new EmptyRequest(), null!);
 
-        response.Succeeded = succeeded;
-        response.ErrorMessage = errorMessage;
+        _ = response.Succeeded.Should().Be(succeeded);
+        _ = response.ErrorMessage.Should().Be(errorMessage);
+    }
+
+    [Fact]
+    public async Task ProcessBecDailyInput_BecServiceCallThrowsException_ReturnsCorrectReply()
+    {
+        var expectedExceptionMessage = "Something went wrong";
+        var expectedException = new Exception(expectedExceptionMessage);
+        _ = this.mockBecService.Setup(svc => svc.ProcessBecDailyInputAsync()).Throws(expectedException);
+        var sut = new RunnerService(this.mockBecService.Object);
+
+        var response = await sut.ProcessBecDailyInput(new EmptyRequest(), null!);
+
+        _ = response.Succeeded.Should().Be(false);
+        _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
     }
 
     [Fact]
@@ -59,22 +75,37 @@ public class RunnerServiceTests
     [InlineData(false, "Some text as error message")]
     public async Task ProcessGetBecEmailsToSend_ReturnsCorrectValue(bool succeeded, string? errorMessage)
     {
+        _ = this.mockBecService.Setup(svc => svc.ProcessGetBecEmailsToSendAsync()).ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
         var response = await sut.ProcessGetBecEmailsToSend(new EmptyRequest(), null!);
 
-        response.Succeeded = succeeded;
-        response.ErrorMessage = errorMessage;
+        _ = response.Succeeded.Should().Be(succeeded);
+        _ = response.ErrorMessage.Should().Be(errorMessage);
     }
 
     [Fact]
-    public async Task ProcessBecSendEamils_CallsServicesCorrectly()
+    public async Task ProcessGetBecEmailsToSend_BecServiceCallThrowsException_ReturnsCorrectReply()
+    {
+        var expectedExceptionMessage = "Something went wrong";
+        var expectedException = new Exception(expectedExceptionMessage);
+        _ = this.mockBecService.Setup(svc => svc.ProcessGetBecEmailsToSendAsync()).Throws(expectedException);
+        var sut = new RunnerService(this.mockBecService.Object);
+
+        var response = await sut.ProcessGetBecEmailsToSend(new EmptyRequest(), null!);
+
+        _ = response.Succeeded.Should().Be(false);
+        _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
+    }
+
+    [Fact]
+    public async Task ProcessBecSendEmails_CallsServicesCorrectly()
     {
         var sut = new RunnerService(this.mockBecService.Object);
 
-        _ = await sut.ProcessBecSendEamils(new EmptyRequest(), null!);
+        _ = await sut.ProcessBecSendEmails(new EmptyRequest(), null!);
 
-        this.mockBecService.Verify(svc => svc.ProcessBecSendEamilsAsync(), Times.Once());
+        this.mockBecService.Verify(svc => svc.ProcessBecSendEmailsAsync(), Times.Once());
         this.mockBecService.VerifyNoOtherCalls();
     }
 
@@ -85,13 +116,28 @@ public class RunnerServiceTests
     [InlineData(false, null)]
     [InlineData(false, "")]
     [InlineData(false, "Some text as error message")]
-    public async Task ProcessBecSendEamils_ReturnsCorrectValue(bool succeeded, string? errorMessage)
+    public async Task ProcessBecSendEmails_ReturnsCorrectValue(bool succeeded, string? errorMessage)
     {
+        _ = this.mockBecService.Setup(svc => svc.ProcessBecSendEmailsAsync()).ReturnsAsync((succeeded, errorMessage));
         var sut = new RunnerService(this.mockBecService.Object);
 
-        var response = await sut.ProcessBecSendEamils(new EmptyRequest(), null!);
+        var response = await sut.ProcessBecSendEmails(new EmptyRequest(), null!);
 
-        response.Succeeded = succeeded;
-        response.ErrorMessage = errorMessage;
+        _ = response.Succeeded.Should().Be(succeeded);
+        _ = response.ErrorMessage.Should().Be(errorMessage);
+    }
+
+    [Fact]
+    public async Task ProcessBecSendEmails_BecServiceCallThrowsException_ReturnsCorrectReply()
+    {
+        var expectedExceptionMessage = "Something went wrong";
+        var expectedException = new Exception(expectedExceptionMessage);
+        _ = this.mockBecService.Setup(svc => svc.ProcessBecSendEmailsAsync()).Throws(expectedException);
+        var sut = new RunnerService(this.mockBecService.Object);
+
+        var response = await sut.ProcessBecSendEmails(new EmptyRequest(), null!);
+
+        _ = response.Succeeded.Should().Be(false);
+        _ = response.ErrorMessage.Should().Be(expectedExceptionMessage);
     }
 }

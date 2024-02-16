@@ -52,11 +52,11 @@ public class RunnerService : BecRunnerService.BecRunnerServiceBase
         }
     }
 
-    public override async Task<BecRunnerReply> ProcessBecSendEamils(EmptyRequest request, ServerCallContext context)
+    public override async Task<BecRunnerReply> ProcessBecSendEmails(EmptyRequest request, ServerCallContext context)
     {
         try
         {
-            var (Succeeded, ErrorMessage) = await this.becService.ProcessBecSendEamilsAsync();
+            var (Succeeded, ErrorMessage) = await this.becService.ProcessBecSendEmailsAsync();
             return new BecRunnerReply
             {
                 Succeeded = Succeeded,
